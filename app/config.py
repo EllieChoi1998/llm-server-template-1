@@ -19,7 +19,7 @@ class Settings(BaseSettings):
     CORS_ORIGINS: List[str] = ["*"]
     
     # 모델 유형
-    MODEL_BACKEND: Literal["llama-cpp", "transformers", "auto"] = os.environ.get("MODEL_BACKEND", "auto")
+    MODEL_BACKEND: Literal["llama-cpp", "transformers", "vllm", "auto"] = os.environ.get("MODEL_BACKEND", "auto")
     
     # GGUF 모델 설정
     MODEL_DIR: str = os.environ.get("MODEL_DIR", "./models")
@@ -49,6 +49,28 @@ class Settings(BaseSettings):
         "tinyllama": {
             "model_id": "TinyLlama/TinyLlama-1.1B-Chat-v1.0",
             "load_in_8bit": False
+        }
+    }
+    
+    # vLLM 모델 설정
+    VLLM_DEFAULT_MODEL: str = os.environ.get("VLLM_DEFAULT_MODEL", "meta-llama/Llama-3-8B-Instruct")
+    VLLM_MODELS: Dict[str, Dict[str, Any]] = {
+        "llama3-8b": {
+            "model_id": "meta-llama/Llama-3-8B-Instruct",
+            "tensor_parallel_size": 1
+        },
+        "llama3-70b": {
+            "model_id": "meta-llama/Llama-3-70B-Instruct",
+            "tensor_parallel_size": 2,
+            "swap_space": 4
+        },
+        "mistral-7b": {
+            "model_id": "mistralai/Mistral-7B-Instruct-v0.2",
+            "tensor_parallel_size": 1
+        },
+        "phi3-mini": {
+            "model_id": "microsoft/Phi-3-mini-4k-instruct",
+            "tensor_parallel_size": 1
         }
     }
     

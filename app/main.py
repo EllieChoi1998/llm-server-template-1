@@ -80,6 +80,10 @@ async def startup_event():
                 default_model = settings.TRANSFORMERS_DEFAULT_MODEL
                 logger.info(f"Transformers 모델 사전 로드 시작: {default_model}")
                 await model_manager.load_model(default_model)
+            elif model_manager.active_backend == "vllm":
+                default_model = settings.VLLM_DEFAULT_MODEL
+                logger.info(f"vLLM 모델 사전 로드 시작: {default_model}")
+                await model_manager.load_model(default_model)
             
             logger.info(f"모델 로드 완료: {model_manager.active_model}")
     except Exception as e:

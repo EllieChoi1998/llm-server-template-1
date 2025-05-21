@@ -22,7 +22,7 @@ class ChatService:
         top_p: Optional[float] = None,
         top_k: Optional[int] = None,
         stop: Optional[List[str]] = None
-    ) -> Dict[str, Any]:
+    ) -> Dict[str, Any]: 
         """채팅 완성을 생성합니다."""
         logger.info(f"채팅 완성 생성 시작, 모델: {model or '기본'}")
         
